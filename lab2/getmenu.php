@@ -1,21 +1,6 @@
 <?php
 declare(strict_types=1);
 
-function swap(&$a, &$b): void
-{
-    $temp = $a;
-    $a = $b;
-    $b = $temp;
-}
-
-$a = 5;
-$b = 8;
-echo "До swap: a = $a, b = $b<br>";
-swap($a, $b);
-echo "После swap: a = $a, b = $b<br>";
-echo "5 === \$b: " . (5 === $b ? 'true' : 'false') . "<br>";
-echo "8 === \$a: " . (8 === $a ? 'true' : 'false') . "<br><br>";
-
 function createMenuArray(): array
 {
     return [
@@ -39,6 +24,7 @@ function getMenu(array $menu, bool $vertical = true): string
     $html .= '</ul>';
     return $html;
 }
+
 $leftMenu = createMenuArray();
 ?>
 <!DOCTYPE html>
@@ -64,11 +50,15 @@ $leftMenu = createMenuArray();
 <body>
     <h1>Меню</h1>
     <?php
+
     echo "<h2>Вертикальное меню</h2>";
     echo getMenu($leftMenu);
+
     echo "<h2>Горизонтальное меню</h2>";
     echo getMenu($leftMenu, false);
     ?> 
 </body>
 
 </html>
+
+
