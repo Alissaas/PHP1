@@ -9,11 +9,11 @@ function getTable(int $cols = 5, int $rows = 5, string $color = 'yellow'): int
     $html = "<h3>Таблица {$rows}×{$cols} (цвет: $color)</h3>";
     $html .= '<table>';
     
-    // Генерируем таблицу умножения
+  
     for ($i = 1; $i <= $rows; $i++) {
         $html .= '<tr>';
         for ($j = 1; $j <= $cols; $j++) {
-            // Первая строка и первый столбец - заголовки
+            
             if ($i === 1 || $j === 1) {
                 $html .= "<th style='background-color: $color;'>" . ($i * $j) . "</th>";
             } else {
