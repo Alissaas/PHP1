@@ -1,37 +1,24 @@
 <?php
-declare(strict_types=1);
 
-// Код для всех страниц - вывод информации о посещенных страницах
 
-/*
-ЗАДАНИЕ 2
-- В случае сохранения данных 
-	- в массив, проверьте, существует ли он в сессии
-	- в строку, преобразуйте её в массив
-- Выводите в цикле список всех посещённых пользователем страниц
-*/
 
-/**
- * Выводит список всех посещенных страниц
- */
-function displayVisitedPages(): void {
-    // Проверяем, существует ли массив посещенных страниц в сессии
-    if (isset($_SESSION['visited_pages']) && !empty($_SESSION['visited_pages'])) {
-        echo "<h3>Список посещённых страниц:</h3>";
-        echo "<ul>";
+echo '<div class="visited-list">';
+echo '<h3>Список посещённых страниц:</h3>';
+
+if (isset($_SESSION['visited_pages']) && !empty($_SESSION['visited_pages'])) {
+    echo '<ol>';
+    
+    foreach ($_SESSION['visited_pages'] as $index => $page) {
+        $page_name = basename($page, '.php');
+        $page_name = str_replace('page', 'Страница ', $page_name);
         
-        // Выводим все посещенные страницы в цикле
-        foreach ($_SESSION['visited_pages'] as $index => $page) {
-            $pageName = basename($page); // Получаем только имя файла
-            echo "<li>" . ($index + 1) . ". $pageName</li>";
-        }
-        
-        echo "</ul>";
-    } else {
-        echo "<p>Вы еще не посещали другие страницы.</p>";
+        echo '<li>' . $page_name . '</li>';
     }
+    
+    echo '</ol>';
+} else {
+    echo '<p>Список пуст</p>';
 }
 
-// Выводим список посещенных страниц
-displayVisitedPages();
+echo '</div>';
 ?>
