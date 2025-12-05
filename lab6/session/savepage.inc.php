@@ -1,29 +1,23 @@
 <?php
-declare(strict_types=1);
+// savepage.inc.php - Сохранение страниц
 
-// Код для всех страниц - сохранение информации о посещенных страницах
+// Включаем сессию ПЕРВЫМ делом
+session_start();
 
-/*
-ЗАДАНИЕ 1
-- Создайте в сессии либо 
-	- массив для хранения всех посещенных страниц и сохраните в качестве его очередного элемента путь к текущей странице. 
-	- строку с уникальным разделителем и последовательно её дополняйте
-*/
+// Настройки для передачи ID сессии через URL
+ini_set("session.use_only_cookies", "0");
+ini_set("session.use_trans_sid", "1");
 
-/**
- * Сохраняет информацию о посещенной странице в сессии
- * @param string $pagePath Путь к текущей странице
- */
-function saveVisitedPage(string $pagePath): void {
-    // Инициализируем массив посещенных страниц, если его нет
-    if (!isset($_SESSION['visited_pages'])) {
-        $_SESSION['visited_pages'] = [];
-    }
-    
-    $_SESSION['visited_pages'][] = $pagePath;
+// Создаем массив если его нет
+if (empty($_SESSION['visited_pages'])) {
+    $_SESSION['visited_pages'] = array();
 }
 
-// Получаем текущий путь страницы
-$currentPage = $_SERVER['PHP_SELF'];
-saveVisitedPage($currentPage);
+// Добавляем текущую страницу
+$current_page = basename($_SERVER['PHP_SELF']);
+$_SESSION['visited_pages'][] = $current_page;
+
+// Отладочная информация
+echo "<!-- Текущая страница: $current_page -->";
+echo "<!-- Всего в списке: " . count($_SESSION['visited_pages']) . " -->";
 ?>
